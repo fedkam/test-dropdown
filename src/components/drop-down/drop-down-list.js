@@ -1,5 +1,8 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect } from 'react';
 import { ReactComponent as IconSelected } from '../../assets/icon/icon-selected.svg';
+import PropTypes from 'prop-types';
+
+
 
 const DDItem = ({ focus, onClick, onKeyDown, isItemInSelection, item }) => {
     const ref = useRef(null);
@@ -23,7 +26,7 @@ const DDItem = ({ focus, onClick, onKeyDown, isItemInSelection, item }) => {
             {isItemInSelection(item) && <IconSelected />}
         </li>
     )
-}
+};
 
 
 
@@ -41,6 +44,24 @@ const DDList = (props) => {
             )))}
         </ul>
     )
+};
+
+
+
+DDItem.propTypes = {
+    data: PropTypes.array,
+    currentFocus: PropTypes.number,
+    onClick: PropTypes.func,
+    onKeyDown: PropTypes.func,
+    isItemInSelection: PropTypes.func
+}
+
+DDList.propTypes = {
+    data: PropTypes.array,
+    currentFocus: PropTypes.number,
+    onClick: PropTypes.func,
+    onKeyDown: PropTypes.func,
+    isItemInSelection: PropTypes.func
 }
 
 

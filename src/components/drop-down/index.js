@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, memo } from 'react';
 import './drop-down.scss';
 import DDHeader from './drop-down-header';
 import DDList from './drop-down-list';
+import PropTypes from 'prop-types';
+
 
 
 const DropDown = ({ data, title = '', multiSelect = false }) => {
@@ -40,7 +42,6 @@ const DropDown = ({ data, title = '', multiSelect = false }) => {
                 break;
             default: break;
         }
-        console.log(e.key, item)
     }
 
     const handleOnClickList = (item) => {
@@ -58,13 +59,14 @@ const DropDown = ({ data, title = '', multiSelect = false }) => {
     }
 
     const getTitle = () => {
-        if (selectedItems.length == 0) {
+        if (selectedItems.length === 0) {
             return title;
         } else {
             let sortSelectedItems = selectedItems.sort((a, b) => {
                 if (a.name > b.name) return 1;
-                if (a.name == b.name) return 0;
+                if (a.name === b.name) return 0;
                 if (a.name < b.name) return -1;
+                return 0;
             });
             sortSelectedItems = sortSelectedItems.map(item => `${item.name}\u003B\t`);
             return sortSelectedItems;
@@ -99,4 +101,14 @@ const DropDown = ({ data, title = '', multiSelect = false }) => {
     )
 }
 
-export default DropDown;
+
+
+DropDown.propTypes = {
+    data: PropTypes.array,
+    title: PropTypes.string,
+    multiSelect: PropTypes.bool
+}
+
+
+
+export default memo(DropDown);
