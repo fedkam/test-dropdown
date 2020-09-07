@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './drop-down.scss';
-import { ReactComponent as IconClose } from '../../assets/icon/icon-close.svg';
+import { ReactComponent as IconClose } from '../../assets/icon/icon-close.svg'; // можно перенести в drop-down/icon для 100% независимости =)
 import { ReactComponent as IconOpen } from '../../assets/icon/icon-open.svg';
 import { ReactComponent as IconSelected } from '../../assets/icon/icon-selected.svg';
 
 const DropDown = ({ data, title = '', multiSelect = false }) => {
+    const ref = useRef(null);
     const [openMenu, setOpenMenu] = useState(false);
     const [selectedItems, setSelectedItems] = useState([]);
     const toggleOpenMenu = () => setOpenMenu(!openMenu);
@@ -21,6 +22,33 @@ const DropDown = ({ data, title = '', multiSelect = false }) => {
             let newSelectedItems = selectedItems.filter(current => current.id !== item.id);
             setSelectedItems([...newSelectedItems]);
         }
+    }
+
+    const handleKeyDownHeader = (e) => {
+        switch (e.key) {
+            case 'Escape':
+                //Esc
+                setOpenMenu(false); break;
+            case 'Enter':
+                //Enter
+                toggleOpenMenu(!openMenu); break;
+        }
+    }
+
+    const handleKeyDownList = (e) => {
+        switch (e.key) {
+            case 'ArrowDown':
+                //down arrow
+                break;
+            case 'ArrowUp':
+                //up arrow
+                break;
+            case 'Escape':
+                //Esc
+                setOpenMenu(false)
+                break;
+        }
+        console.log(e.key)
     }
 
     const getTitle = () => {
@@ -48,10 +76,10 @@ const DropDown = ({ data, title = '', multiSelect = false }) => {
         <div className='drop-down-wrapper'>
             <div
                 className='drop-down-header'
-                tabIndex={0}
+                tabIndex={1}
                 role='button'
-                // onKeyPress={() => toggle(!openMenu)}
                 onClick={() => toggleOpenMenu(!openMenu)}
+                onKeyDown={handleKeyDownHeader}
             >
                 <div className='drop-down-header__title'>
                     <p>{getTitle()}</p>
@@ -65,8 +93,11 @@ const DropDown = ({ data, title = '', multiSelect = false }) => {
                     {data.map((item => (
                         <li
                             className='drop-down-list__item'
+                            tabIndex={2}
+                            ref={ref}
                             key={item.id}
                             onClick={() => handleOnClick(item)}
+                            onKeyDown={handleKeyDownList}
                         >
                             <span>{item.name}</span>
                             {isItemInSelection(item) && <IconSelected />}
