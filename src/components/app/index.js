@@ -32,7 +32,6 @@ function App() {
       </div>
       <div className='app__drop-down_indent'>
         <DropDown
-          className='app__drop-down_indent'
           data={data}
           title='Одиночное выделение' />
       </div>
