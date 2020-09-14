@@ -37,7 +37,7 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+v
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
@@ -66,3 +66,15 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `yarn build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+## Comment
+1. нет тегов <br />
+2. нет возможности удалить тег, не открывая селект <br />
+3. нет закрытия по клику вне дропдауна <br /> 
+4. верстка не должна скакать при открытии дропдауна, если добавить 20 элементов, то все уплывает <br />
+5. не реализован фильтр <br />
+6. в коде есть места, которые можно отрефакторить и упростить, например  <br />
+`function isItemInSelection(item) { 
+    return selectedItems.some(current => current.id === item.id)
+}`
+7. приложение можно оптимизировать, например, onKeyDown вешать не на каждый элемент, а на компонент в целом.<br />
